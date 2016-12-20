@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html,body{
+            margin:0;
+            width:100%;
+            overflow: hidden;
+            height:100%;
+        }
+        li{
+            list-style: none;
+        }
+
+        #box{
+            position: absolute;
+            left: 0;
+            top:0;
+            width:100%;
+            height:100%;
+        }
+        #box .list{
+            width:100%;
+            height:100%;
+            position: absolute;
+        }
+        #box .list li{
+            width:100%;
+            height: 100%;
+            position: absolute;
+            left:-100%;
+        }
+        #box .list li.active{
+            left: 0;
+        }
+        #box img{
+            width:100%;
+            height:100%;
+        }
+        #box nav{
+            width:100%;
+            height: 50px;
+            position: absolute;
+            left:0;
+            bottom: 0;
+            text-align: center;
+        }
+        #box nav li{
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            background: url(img/bg_white.png);
+            margin: 3px;
+            cursor: pointer;
+        }
+        #box nav li.bg{
+            background: url(img/bg_blue.png);
+        }
+        #box nav li.play{
+            background: url("img/play.png");
+        }
+        #box .prev,#box .next{
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            top:50%;
+            margin-top:-30px;
+            cursor: pointer;
+        }
+
+        #box .prev{
+            left:20px;
+            background: url(img/button.png) no-repeat 0px 0px;
+        }
+        #box .next{
+            right:20px;
+            background: url(img/button.png) no-repeat 0px -70px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul class="list">
+            <li class="active"><img src="img/1.jpg" alt=""></li>
+            <li><img src="img/2.jpg" alt=""></li>
+            <li><img src="img/3.jpg" alt=""></li>
+            <li><img src="img/4.jpg" alt=""></li>
+        </ul>
+        <div class="prev"></div>
+        <div class="next"></div>
+        <div class="play"></div>
+        <nav>
+            <li class="bg"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </nav>
+
+    </div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery/2.1.2/jquery.js"></script>
+<script>
+   var a = 0,b=0;
+   function myGt() {
+       $("#box .list li").eq(a).css({"left":"100%"});
+       $("#box .list li").eq(a).animate({"left":"0px"});
+       $("#box .list li").eq(b).animate({"left":"-100%"});
+       b = a;
+       $("#box nav li").eq(a).addClass("bg").siblings("li").removeClass("bg");
+   }
+   function myLt() {
+       $("#box .list li").eq(a).css({"left":"-100%"});
+       $("#box .list li").eq(a).animate({"left":"0px"});
+       $("#box .list li").eq(b).animate({"left":"100%"});
+       b=a;
+       $("#box nav li").eq(a).addClass("bg").siblings("li").removeClass("bg");
+   }
+   $("#box nav li").click(function () {
+       a = $(this).index();
+       $("#box nav li").eq(a).addClass("bg").siblings("li").removeClass("bg");
+       if(a>b){
+           myGt();
+       }else if(a<b){
+           myLt()
+        }
+   })
+    $("#box .prev").click(function () {
+        a--;
+        if(a<0)a = 3;
+        myGt();
+        $("#box nav li").eq(a).addClass("bg").siblings("li").removeClass("bg");
+    })
+   $("#box .next").click(function () {
+       a++;
+       if(a>3)a = 0;
+       myLt();
+       $("#box nav li").eq(a).addClass("bg").siblings("li").removeClass("bg");
+   })
+
+</script>
+</html>
