@@ -1,4 +1,5 @@
 # lunbo
+##轮播地址[https://xjy2016.github.io/lunbo/](https://xjy2016.github.io/lunbo/)
 - 测试：在bin目录下
 mongod.exe --dbpath="D:\Program Files\MongoDB\data\db"
 - 此条命令可以百发百中：
